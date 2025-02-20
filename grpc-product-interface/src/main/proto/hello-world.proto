@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package product;
+
+option java_multiple_files = true;
+option java_package = "de.ilyes.grpc.product.proto";
+option java_outer_classname = "ProductProto";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+service ProductService {
+  rpc Find (google.protobuf.Empty) returns (ProductListResponse) {};
+  rpc Create (ProductRequest) returns (ProductResponse) {};
+  rpc Delete (google.protobuf.Int64Value) returns (google.protobuf.Empty) {};
+  rpc Update (ProductRequest) returns (ProductResponse) {};
+
+}
+
+message ProductRequest {
+  int64 id = 1;
+  string name = 2;
+  int64 price = 3;
+}
+
+message ProductResponse {
+  int64 id = 1;
+  string name = 2;
+  int64 price = 3;
+}
+
+message ProductListResponse {
+  repeated ProductResponse resultList = 1;
+  google.protobuf.Int64Value resultCount = 2;
+}
